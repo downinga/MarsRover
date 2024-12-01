@@ -11,7 +11,7 @@ namespace MarsRover.Entities
         }
         public bool IsLocationOnMap(RobotLocation location)
         {
-            return this.maxX < location._x || this.maxY < location._y || 0 > location._x || 0 > location._y;
+            return !(this.maxX < location._x || this.maxY < location._y || 0 > location._x || 0 > location._y);
         }
         public void AddLostRobotLocation(RobotLocation location)
         {

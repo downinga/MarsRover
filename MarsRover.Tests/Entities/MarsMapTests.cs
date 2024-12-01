@@ -36,9 +36,9 @@ namespace MarsRover.Tests
             var marsMap = new MarsMap(10, 10);
             var robotLocation = new RobotLocation(5, 5, RobotDirection.N);
 
-            var isRobotOffMap = marsMap.IsLocationOnMap(robotLocation);
+            var isRobotOnMap = marsMap.IsLocationOnMap(robotLocation);
 
-            Assert.False(isRobotOffMap);
+            Assert.True(isRobotOnMap);
         }
 
         [Fact]
@@ -47,9 +47,9 @@ namespace MarsRover.Tests
             var marsMap = new MarsMap(10, 10);
             var robotLocation = new RobotLocation(11, 10, RobotDirection.N);
 
-            var isRobotOffMap = marsMap.IsLocationOnMap(robotLocation);
+            var isRobotOnMap = marsMap.IsLocationOnMap(robotLocation);
 
-            Assert.True(isRobotOffMap);
+            Assert.False(isRobotOnMap);
         }
 
         [Fact]
@@ -58,9 +58,9 @@ namespace MarsRover.Tests
             var marsMap = new MarsMap(10, 10);
             var robotLocation = new RobotLocation(10, 11, RobotDirection.N);
 
-            var isRobotOffMap = marsMap.IsLocationOnMap(robotLocation);
+            var isRobotOnMap = marsMap.IsLocationOnMap(robotLocation);
 
-            Assert.True(isRobotOffMap);
+            Assert.False(isRobotOnMap);
         }
 
         [Fact]
@@ -69,9 +69,9 @@ namespace MarsRover.Tests
             var marsMap = new MarsMap(10, 10);
             var robotLocation = new RobotLocation(-1, 0, RobotDirection.N);
 
-            var isRobotOffMap = marsMap.IsLocationOnMap(robotLocation);
+            var isRobotOnMap = marsMap.IsLocationOnMap(robotLocation);
 
-            Assert.True(isRobotOffMap);
+            Assert.False(isRobotOnMap);
         }
 
         [Fact]
@@ -80,9 +80,9 @@ namespace MarsRover.Tests
             var marsMap = new MarsMap(10, 10);
             var robotLocation = new RobotLocation(0, -1, RobotDirection.N);
 
-            var isRobotOffMap = marsMap.IsLocationOnMap(robotLocation);
+            var isRobotOnMap = marsMap.IsLocationOnMap(robotLocation);
 
-            Assert.True(isRobotOffMap);
+            Assert.False(isRobotOnMap);
         }
     }
 }
