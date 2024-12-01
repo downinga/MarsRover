@@ -25,16 +25,15 @@ namespace MarsRover
                 { RobotInstruction.R, new TurnRightInstruction() }
             };
 
-            ControlStation controlStation = new(instructionSet);
-
-            var finalRobotStatuses = controlStation.MoveRobots(map, instructions);
-
+            ControlStation controlStation = new(instructionSet, map);
             StreamWriter fileWriter = new("output.txt");
 
-            foreach(var finalRobotStatus in finalRobotStatuses)
+            foreach (var (robotLocation, robotInstructions) in instructions)
             {
-                fileWriter.WriteLine(finalRobotStatus);
+                var finalRobotLocation = controlStation.GetFinaLocationOfRobot(robotLocation, robotInstructions);
+                fileWriter.WriteLine(finalRobotLocation);
             }
+
             fileWriter.Close();
         }
     }

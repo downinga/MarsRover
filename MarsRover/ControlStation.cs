@@ -5,54 +5,49 @@ namespace MarsRover
 {
     public class ControlStation
     {
+        private readonly MarsMap _mars;
         private readonly IDictionary<RobotInstruction, IInstructionStrategy> _instructionSet;
 
-        public ControlStation(IDictionary<RobotInstruction, IInstructionStrategy> instructionSet)
+        public ControlStation(IDictionary<RobotInstruction, IInstructionStrategy> instructionSet, MarsMap mars)
         {
             this._instructionSet = instructionSet;
+            this._mars = mars;
         }
-        public List<String> MoveRobots(MarsMap mars, IDictionary<RobotLocation,IList<RobotInstruction>> robotInput)
+
+        public String GetFinaLocationOfRobot(RobotLocation currentLocation, IList<RobotInstruction> instructions)
         {
-            List<String> robotFinalStatuses = [];
+            var robotLocation = currentLocation;
+            var robotLost = false;
 
-            foreach(var (location, instructions) in robotInput) 
+            Console.WriteLine("Moving robot.");
+
+            foreach(var instruction in instructions)
             {
-                var robotLocation = location;
-                var robotLost = false;
+                IInstructionStrategy movementStrategy = _instructionSet[instruction];
+                var newRobotLocation = movementStrategy.Execute(robotLocation);
 
-                Console.WriteLine("Moving robot.");
-
-                foreach(var instruction in instructions)
+                if (_mars.HasRobotBeenLost(robotLocation) && !_mars.IsLocationOnMap(newRobotLocation))
                 {
-                    IInstructionStrategy movementStrategy = _instructionSet[instruction];
-                    var newRobotLocation = movementStrategy.Execute(robotLocation);
-
-                    if (mars.HasRobotBeenLost(robotLocation) && !mars.IsLocationOnMap(newRobotLocation))
-                    {
-                        Console.WriteLine($"Instruction will send robot off the edge at {robotLocation}, skipping.");
-                        continue;
-                    }
-
-                    if (!mars.IsLocationOnMap(newRobotLocation))
-                    {
-                        mars.AddLostRobotLocation(robotLocation);
-                        robotLost = true;
-                        Console.WriteLine($"Robot has now been lost at {robotLocation}.");
-                        break;
-                    }
-
-                    robotLocation = newRobotLocation;
+                    Console.WriteLine($"Instruction will send robot off the edge at {robotLocation}, skipping.");
+                    continue;
                 }
 
-                if (robotLost)
+                if (!_mars.IsLocationOnMap(newRobotLocation))
                 {
-                    robotFinalStatuses.Add($"{robotLocation} LOST");
+                    _mars.AddLostRobotLocation(robotLocation);
+                    robotLost = true;
+                    Console.WriteLine($"Robot has now been lost at {robotLocation}.");
+                    break;
                 }
-                else {
-                    robotFinalStatuses.Add(robotLocation.ToString());
-                }
+
+                robotLocation = newRobotLocation;
             }
-            return robotFinalStatuses;
+
+            if (robotLost)
+            {
+                return $"{robotLocation} LOST";
+            }
+            return robotLocation.ToString();
         }
     }
 }
