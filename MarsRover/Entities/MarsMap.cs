@@ -1,17 +1,17 @@
 namespace MarsRover.Entities
 {
     public class MarsMap {
-        public int maxX { get; }
-        public int maxY { get; }
+        public int MaxX { get; }
+        public int MaxY { get; }
         private HashSet<string> lostRobots = [];
         public MarsMap(int maxX, int maxY)
         {
-            this.maxX = maxX;
-            this.maxY = maxY;
+            this.MaxX = maxX;
+            this.MaxY = maxY;
         }
         public bool IsLocationOnMap(RobotLocation location)
         {
-            return !(this.maxX < location._x || this.maxY < location._y || 0 > location._x || 0 > location._y);
+            return !(this.MaxX < location.X || this.MaxY < location.Y || 0 > location.X || 0 > location.Y);
         }
         public void AddLostRobotLocation(RobotLocation location)
         {

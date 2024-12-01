@@ -5,7 +5,7 @@ namespace MarsRover
 {
     public class ControlStation
     {
-        private IDictionary<RobotInstruction, IInstructionStrategy> _instructionSet;
+        private readonly IDictionary<RobotInstruction, IInstructionStrategy> _instructionSet;
 
         public ControlStation(IDictionary<RobotInstruction, IInstructionStrategy> instructionSet)
         {

@@ -25,8 +25,8 @@ namespace MarsRover.Tests
 
             var (map, instructions) = inputFileParser.parse();
 
-            Assert.Equal(50, map.maxX);
-            Assert.Equal(20, map.maxY);
+            Assert.Equal(50, map.MaxX);
+            Assert.Equal(20, map.MaxY);
 
             Assert.Equal(2, instructions.Count());
             

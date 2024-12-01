@@ -10,18 +10,18 @@ namespace MarsRover.Instructions
         }
         public RobotLocation Execute(RobotLocation location)
         {
-            switch (location._direction)
+            switch (location.Direction)
             {
                 case RobotDirection.N:
-                    return new RobotLocation(location._x, location._y + 1, location._direction);
+                    return new RobotLocation(location.X, location.Y + 1, location.Direction);
                 case RobotDirection.E:
-                    return new RobotLocation(location._x + 1,location._y, location._direction);
+                    return new RobotLocation(location.X + 1,location.Y, location.Direction);
                 case RobotDirection.S:
-                    return new RobotLocation(location._x,location._y - 1, location._direction);
+                    return new RobotLocation(location.X,location.Y - 1, location.Direction);
                 case RobotDirection.W:
-                    return new RobotLocation(location._x - 1,location._y, location._direction);
+                    return new RobotLocation(location.X - 1,location.Y, location.Direction);
                 default:
-                    throw new Exception($"Unrecognised robot direction {location._direction}");
+                    throw new Exception($"Unrecognised robot direction {location.Direction}");
             }
         }
     }

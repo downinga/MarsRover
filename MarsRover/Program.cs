@@ -13,8 +13,8 @@ namespace MarsRover
                 throw new ArgumentOutOfRangeException("Incorrect number of arguments provided, please provide location of input file as argument only.");
             }
 
-            StreamReader fileReader = new StreamReader(args[0]);
-            InputFileParser validator = new InputFileParser(fileReader);
+            StreamReader fileReader = new(args[0]);
+            InputFileParser validator = new(fileReader);
 
             var (map, instructions) = validator.parse();
 

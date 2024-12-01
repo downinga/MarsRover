@@ -15,9 +15,9 @@ namespace MarsRover.Tests
 
             var newLocation = strategy.Execute(robotLocation);
 
-            Assert.Equal(5, newLocation._x);
-            Assert.Equal(5, newLocation._y);
-            Assert.Equal(RobotDirection.S, newLocation._direction);
+            Assert.Equal(5, newLocation.X);
+            Assert.Equal(5, newLocation.Y);
+            Assert.Equal(RobotDirection.S, newLocation.Direction);
         }
         [Fact]
         public void MovesDirectionToWestIfSouth()
@@ -27,9 +27,9 @@ namespace MarsRover.Tests
 
             var newLocation = strategy.Execute(robotLocation);
 
-            Assert.Equal(5, newLocation._x);
-            Assert.Equal(5, newLocation._y);
-            Assert.Equal(RobotDirection.W, newLocation._direction);
+            Assert.Equal(5, newLocation.X);
+            Assert.Equal(5, newLocation.Y);
+            Assert.Equal(RobotDirection.W, newLocation.Direction);
         }
 
         [Fact]
@@ -40,9 +40,9 @@ namespace MarsRover.Tests
 
             var newLocation = strategy.Execute(robotLocation);
 
-            Assert.Equal(5, newLocation._x);
-            Assert.Equal(5, newLocation._y);
-            Assert.Equal(RobotDirection.N, newLocation._direction);
+            Assert.Equal(5, newLocation.X);
+            Assert.Equal(5, newLocation.Y);
+            Assert.Equal(RobotDirection.N, newLocation.Direction);
         }
 
         [Fact]
@@ -53,9 +53,9 @@ namespace MarsRover.Tests
 
             var newLocation = strategy.Execute(robotLocation);
 
-            Assert.Equal(5, newLocation._x);
-            Assert.Equal(5, newLocation._y);
-            Assert.Equal(RobotDirection.E, newLocation._direction);
+            Assert.Equal(5, newLocation.X);
+            Assert.Equal(5, newLocation.Y);
+            Assert.Equal(RobotDirection.E, newLocation.Direction);
         }
     }
 }
