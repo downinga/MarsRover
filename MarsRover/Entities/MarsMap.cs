@@ -3,7 +3,7 @@ namespace MarsRover.Entities
     public class MarsMap {
         public int maxX { get; }
         public int maxY { get; }
-        private HashSet<RobotLocation> lostRobots = [];
+        private HashSet<string> lostRobots = [];
         public MarsMap(int maxX, int maxY)
         {
             this.maxX = maxX;
@@ -15,11 +15,11 @@ namespace MarsRover.Entities
         }
         public void AddLostRobotLocation(RobotLocation location)
         {
-            this.lostRobots.Add(location);
+            this.lostRobots.Add(location.ToString());
         }
         public bool HasRobotBeenLost(RobotLocation location)
         {
-            return this.lostRobots.Any(lostRobot => lostRobot.ToString() == location.ToString());
+            return this.lostRobots.Any(lostRobot => lostRobot == location.ToString());
         }
     }
 }
