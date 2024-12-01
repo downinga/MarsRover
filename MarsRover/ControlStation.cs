@@ -18,16 +18,9 @@ namespace MarsRover
             foreach(var (location, instructions) in robotInput) 
             {
                 var robotLocation = location;
-
-                if (!mars.IsLocationOnMap(robotLocation))
-                {
-                    Console.WriteLine("Robot already not on map, skipping.");
-                    continue;
-                }
+                var robotLost = false;
 
                 Console.WriteLine("Moving robot.");
-
-                var robotLost = false;
 
                 foreach(var instruction in instructions)
                 {
