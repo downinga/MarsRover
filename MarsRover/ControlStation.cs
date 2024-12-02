@@ -26,21 +26,22 @@ namespace MarsRover
                 IInstructionStrategy movementStrategy = _instructionSet[instruction];
                 var newRobotLocation = movementStrategy.Execute(robotLocation);
 
-                if (_mars.HasRobotBeenLost(robotLocation) && !_mars.IsLocationOnMap(newRobotLocation))
+                if (_mars.IsLocationOnMap(newRobotLocation))
+                {
+                    robotLocation = newRobotLocation;
+                    continue;
+                }
+
+                if (_mars.HasRobotBeenLost(robotLocation)) 
                 {
                     Console.WriteLine($"Instruction will send robot off the edge at {robotLocation}, skipping.");
                     continue;
                 }
-
-                if (!_mars.IsLocationOnMap(newRobotLocation))
-                {
-                    _mars.AddLostRobotLocation(robotLocation);
-                    robotLost = true;
-                    Console.WriteLine($"Robot has now been lost at {robotLocation}.");
-                    break;
-                }
-
-                robotLocation = newRobotLocation;
+                    
+                Console.WriteLine($"Robot has now been lost at {robotLocation}.");
+                _mars.AddLostRobotLocation(robotLocation);
+                robotLost = true;
+                break;
             }
 
             if (robotLost)
