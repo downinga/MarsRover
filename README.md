@@ -27,7 +27,7 @@ RFRFRF
 LFLFLF
 ```
 
-The output of the above command will be found in the root directory under `output.txt`, the contents of this file will include the final positions of the robot inputs and an indication as to whether the robot got lost.
+The output of the above command will be found in the root directory under `output.txt`, the contents of this file will include the final positions of the robot inputs and an indication as to whether the robot got lost (e.g. `4 1 W LOST`).
 ```code
 4 1 W
 1 4 S
