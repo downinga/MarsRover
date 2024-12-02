@@ -1,5 +1,6 @@
 using MarsRover.Entities;
 using MarsRover.Instructions;
+using Moq;
 
 namespace MarsRover.Tests
 {
@@ -10,12 +11,17 @@ namespace MarsRover.Tests
         {
             MarsMap mars = new(5,5);
 
+            var mockForwardStrategy = new Mock<IInstructionStrategy>(MockBehavior.Strict);
+            mockForwardStrategy.Setup(mock => mock.Execute(It.IsAny<RobotLocation>()))
+                .Returns((RobotLocation location) => new RobotLocation(location.X + 1, location.Y, location.Direction));
+
             IDictionary<RobotInstruction, IInstructionStrategy> instructionSet = new Dictionary<RobotInstruction, IInstructionStrategy>()
             {
-                { RobotInstruction.F, new ForwardInstruction() }
+                { RobotInstruction.F, mockForwardStrategy.Object }
             };
 
-            mars.AddLostRobotLocation(new RobotLocation(5,4, RobotDirection.E));
+            var lostRobot = new RobotLocation(5,4, RobotDirection.E);
+            mars.AddLostRobotLocation(lostRobot);
             ControlStation controlStation = new(instructionSet, mars);
 
             RobotLocation robot = new(4,4,RobotDirection.E);
@@ -27,6 +33,7 @@ namespace MarsRover.Tests
             };
 
             var robotStatus = controlStation.GetFinaLocationOfRobot(robot, instructions);
+
             Assert.Equal("5 4 E", robotStatus);
         }
 
@@ -35,12 +42,16 @@ namespace MarsRover.Tests
         {
             MarsMap mars = new(5,5);
 
+            var mockForwardStrategy = new Mock<IInstructionStrategy>(MockBehavior.Strict);
+            mockForwardStrategy.Setup(mock => mock.Execute(It.IsAny<RobotLocation>()))
+                .Returns((RobotLocation location) => new RobotLocation(location.X + 1, location.Y, location.Direction));
+
             IDictionary<RobotInstruction, IInstructionStrategy> instructionSet = new Dictionary<RobotInstruction, IInstructionStrategy>()
             {
-                { RobotInstruction.F, new ForwardInstruction() }
+                { RobotInstruction.F, mockForwardStrategy.Object }
             };
-
-            mars.AddLostRobotLocation(new RobotLocation(5,3, RobotDirection.E));
+            var lostRobot = new RobotLocation(5,3, RobotDirection.E);
+            mars.AddLostRobotLocation(lostRobot);
             ControlStation controlStation = new(instructionSet, mars);
 
             RobotLocation robot = new(4,4,RobotDirection.E);
@@ -52,6 +63,7 @@ namespace MarsRover.Tests
             };
 
             var robotStatus = controlStation.GetFinaLocationOfRobot(robot, instructions);
+
             Assert.Equal("5 4 E LOST", robotStatus);
         }
 
@@ -60,11 +72,14 @@ namespace MarsRover.Tests
         {
             MarsMap mars = new(5,5);
 
+            var mockForwardStrategy = new Mock<IInstructionStrategy>(MockBehavior.Strict);
+            mockForwardStrategy.Setup(mock => mock.Execute(It.IsAny<RobotLocation>()))
+                .Returns((RobotLocation location) => new RobotLocation(location.X + 1, location.Y, location.Direction));
+
             IDictionary<RobotInstruction, IInstructionStrategy> instructionSet = new Dictionary<RobotInstruction, IInstructionStrategy>()
             {
-                { RobotInstruction.F, new ForwardInstruction() }
+                { RobotInstruction.F, mockForwardStrategy.Object }
             };
-
             ControlStation controlStation = new(instructionSet, mars);
 
             RobotLocation robot = new(4,4,RobotDirection.E);
@@ -76,6 +91,8 @@ namespace MarsRover.Tests
             };
 
             var robotStatus = controlStation.GetFinaLocationOfRobot(robot, instructions);
+
+            Assert.True(mars.HasRobotBeenLost(new RobotLocation(5,4,RobotDirection.E)));
             Assert.Equal("5 4 E LOST", robotStatus);
         }
 
@@ -84,9 +101,13 @@ namespace MarsRover.Tests
         {
             MarsMap mars = new(5,5);
 
+            var mockForwardStrategy = new Mock<IInstructionStrategy>(MockBehavior.Strict);
+            mockForwardStrategy.Setup(mock => mock.Execute(It.IsAny<RobotLocation>()))
+                .Returns((RobotLocation location) => new RobotLocation(location.X + 1, location.Y, location.Direction));
+
             IDictionary<RobotInstruction, IInstructionStrategy> instructionSet = new Dictionary<RobotInstruction, IInstructionStrategy>()
             {
-                { RobotInstruction.F, new ForwardInstruction() }
+                { RobotInstruction.F, mockForwardStrategy.Object }
             };
 
             ControlStation controlStation = new(instructionSet, mars);
