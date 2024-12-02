@@ -32,7 +32,7 @@ namespace MarsRover
                     continue;
                 }
 
-                if (_mars.HasRobotBeenLost(robotLocation)) 
+                if (_mars.HasARobotFallenOffEdge(robotLocation)) 
                 {
                     Console.WriteLine($"Instruction will send robot off the edge at {robotLocation}, skipping.");
                     continue;

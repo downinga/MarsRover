@@ -12,7 +12,7 @@ namespace MarsRover.Tests
             var anotherRobotLocation = new RobotLocation(9, 10, RobotDirection.N);
 
             marsMap.AddLostRobotLocation(robotLocation);
-            var isRobotLost = marsMap.HasRobotBeenLost(anotherRobotLocation);
+            var isRobotLost = marsMap.HasARobotFallenOffEdge(anotherRobotLocation);
 
             Assert.False(isRobotLost);
         }
@@ -25,7 +25,20 @@ namespace MarsRover.Tests
             var anotherRobotLocation = new RobotLocation(10, 10, RobotDirection.N);
 
             marsMap.AddLostRobotLocation(robotLocation);
-            var isRobotLost = marsMap.HasRobotBeenLost(anotherRobotLocation);
+            var isRobotLost = marsMap.HasARobotFallenOffEdge(anotherRobotLocation);
+
+            Assert.True(isRobotLost);
+        }
+
+        [Fact]
+        public void TrueIfRobotHasBeenPreviouslyLostInDifferentDirection()
+        {
+            var marsMap = new MarsMap(10, 10);
+            var robotLocation = new RobotLocation(9, 10, RobotDirection.N);
+            var anotherRobotLocation = new RobotLocation(9, 10, RobotDirection.E);
+
+            marsMap.AddLostRobotLocation(robotLocation);
+            var isRobotLost = marsMap.HasARobotFallenOffEdge(anotherRobotLocation);
 
             Assert.True(isRobotLost);
         }
