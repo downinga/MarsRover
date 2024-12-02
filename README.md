@@ -23,15 +23,14 @@ dotnet run --project MarsRover/MarsRover.csproj -- {PATH_TO_INPUT_FILE}
 4 2 N
 RFRFRF
 
-2 4 L
+2 4 E
 LFLFLF
 ```
 
 The output of the above command will be found in the root directory under `output.txt`, the contents of this file will include the final positions of the robot inputs and an indication as to whether the robot got lost.
 ```code
-1 1 E
-3 3 N LOST
-2 3 S
+4 1 W
+1 4 S
 ```
 
 ### Unit testing
